@@ -8,7 +8,7 @@ import ResumeCard from './resume-card';
 const Contact = () => {
   return (
     <div className='relative mt-16 before:absolute before:top-0 before:-left-[100vw] before:h-px before:w-[200vw] before:bg-gray-950/5 after:absolute after:bottom-0 after:-left-[100vw] after:h-px after:w-[200vw] after:bg-gray-950/5 dark:before:bg-white/10 dark:after:bg-white/10'>
-      <div className='grid w-full grid-flow-dense grid-cols-1 gap-2 bg-gray-950/5 p-2 md:grid-cols-3 dark:bg-white/10'>
+      <div className='grid w-full grid-cols-1 gap-2 bg-gray-950/5 p-2 md:grid-cols-3 dark:bg-white/10'>
         <div className='group isolate overflow-hidden rounded-lg bg-white p-3 outline outline-gray-950/5 transition-colors duration-200 dark:bg-gray-950 dark:outline-white/10 dark:hover:bg-gray-950/80'>
           <Link
             className='flex items-center gap-4'

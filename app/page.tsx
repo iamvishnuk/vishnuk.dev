@@ -3,17 +3,17 @@ import Contact from '@/components/contact';
 import About from '@/components/about';
 import GitHubContributions from '@/components/github-contribution';
 import WorkExperience from '@/components/work-experience';
+import TechStack from '@/components/tech-stack';
 
 export default function Home() {
   return (
-    <div className='grid-rows-[1fr_1px_auto_1px_auto]'>
+    <div className='pb-16'>
       <Hero />
-      <div className='h-10' />
       <About />
       <Contact />
       <GitHubContributions />
       <WorkExperience />
-      <div className='h-40' />
+      <TechStack />
     </div>
   );
 }

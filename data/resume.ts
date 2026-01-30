@@ -1,3 +1,6 @@
+import { IconProps, Icons } from '@/icons';
+import { JSX } from 'react';
+
 type Position = {
   id: string;
   name: string;
@@ -7,6 +10,16 @@ type Position = {
   jobType: 'part-time' | 'contract' | 'full-time';
   isOpen: boolean;
 };
+
+type Skill = {
+  name: string;
+  icon: (icon: IconProps) => JSX.Element;
+};
+
+export interface Data {
+  skills: Skill[];
+  projects: Project[];
+}
 
 export type TWorkExperience = {
   id: string;
@@ -19,6 +32,25 @@ export type TWorkExperience = {
   startDate: string;
   endDate: string | null;
   position: Position[];
+};
+
+export type Project = {
+  id: string;
+  title: string;
+  projectFor: string;
+  href: string;
+  startDate: string;
+  endDate: string;
+  active: boolean;
+  description: string;
+  technologies: string[];
+  links: {
+    type: string;
+    href: string;
+    icon?: (icon: IconProps) => JSX.Element;
+  }[];
+  image: string;
+  video: string | null;
 };
 
 export const WORK_EXPERIENCE = [
@@ -63,3 +95,170 @@ export const WORK_EXPERIENCE = [
     ]
   }
 ] satisfies TWorkExperience[];
+
+export const DATA: Data = {
+  skills: [
+    {
+      name: 'Typescript',
+      icon: Icons.typescript
+    },
+    {
+      name: 'Javascript',
+      icon: Icons.javascript
+    },
+    {
+      name: 'React',
+      icon: Icons.react
+    },
+    {
+      name: 'Next.js',
+      icon: Icons.nextjs
+    },
+    {
+      name: 'Redux',
+      icon: Icons.redux
+    },
+    {
+      name: 'Node.js',
+      icon: Icons.nodejs
+    },
+    {
+      name: 'Postgres',
+      icon: Icons.postgres
+    },
+    {
+      name: 'Docker',
+      icon: Icons.docker
+    },
+    {
+      name: 'MongoDB',
+      icon: Icons.mongodb
+    },
+    {
+      name: 'TailwindCSS',
+      icon: Icons.tailwindcss
+    },
+    {
+      name: 'AWS',
+      icon: Icons.aws
+    },
+    {
+      name: 'Cloudflare',
+      icon: Icons.cloudflare
+    },
+    {
+      name: 'Express.js',
+      icon: Icons.expressjs
+    },
+    {
+      name: 'Git',
+      icon: Icons.git
+    },
+    {
+      name: 'GitHub',
+      icon: Icons.github
+    },
+    {
+      name: 'Figma',
+      icon: Icons.figma
+    },
+    {
+      name: 'Socket.IO',
+      icon: Icons.socketIo
+    },
+    {
+      name: 'Npm',
+      icon: Icons.npm
+    },
+    {
+      name: 'pnpm',
+      icon: Icons.pnpm
+    },
+    {
+      name: 'redis',
+      icon: Icons.redis
+    },
+    {
+      name: 'eslint',
+      icon: Icons.eslint
+    },
+    {
+      name: 'prettier',
+      icon: Icons.prettier
+    },
+    {
+      name: 'husky',
+      icon: Icons.husky
+    },
+    {
+      name: 'postman',
+      icon: Icons.postman
+    }
+  ],
+
+  projects: [
+    {
+      id: 'PRO-0001',
+      title: 'Ghar Ka Dhosth - Real Estate Platform',
+      projectFor: 'Freelance',
+      href: 'https://gharkadhosth.in',
+      startDate: 'Oct 2025',
+      endDate: 'Oct 2025',
+      active: false,
+      description:
+        'A modern full-stack real estate web application built with Next.js 15, React 19, and TypeScript. Features comprehensive property management with advanced filtering, location-based search, and admin dashboard. Integrates MongoDB, AWS S3 for image storage, and WhatsApp for instant communication. Built with Tailwind CSS and Framer Motion for responsive design and smooth animations. Implements server-side actions, form validation with Zod, and SEO-friendly routing. Docker-ready deployment showcasing enterprise-level architecture for real estate businesses.',
+      technologies: [
+        'Next.js',
+        'Typescript',
+        'MongoDB',
+        'TailwindCSS',
+        'Shadcn UI',
+        'Motion',
+        'AWS S3',
+        'Vercel'
+      ],
+      links: [
+        {
+          type: 'Website',
+          href: 'https://gharkadhosth.in'
+        }
+      ],
+      image: '/ghar-ka-dhosth.png',
+      video: ''
+    },
+    {
+      id: 'PRO-0002',
+      title: 'Gamezone (E-commerce)',
+      projectFor: 'Personal Project',
+      href: 'http://13.233.89.30:3001',
+      active: false,
+      startDate: 'Nov 2023',
+      endDate: 'Dec 2024',
+      description:
+        'Game-zone is an e-commerce website that allows customers to browse and purchase products online. The website features a user-friendly interface, a secure payment system, and advanced search and filtering options. Customers can create accounts, and track their order status.',
+      technologies: [
+        'Node.js',
+        'Express.js',
+        'MongoDB',
+        'EJS',
+        'Bootstrap',
+        'Razorpay',
+        'Twilio'
+      ],
+      links: [
+        {
+          type: 'Website',
+          href: 'http://13.233.89.30:3001',
+          icon: Icons.globe
+        },
+        {
+          type: 'GitHub',
+          href: 'https://github.com/iamvishnuk/Gamezone---ecommerce',
+          icon: Icons.github
+        }
+      ],
+      image: '/gamezone.png',
+      video: ''
+    }
+  ]
+};
