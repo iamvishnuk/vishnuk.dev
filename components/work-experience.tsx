@@ -46,7 +46,6 @@ const WorkExperience = () => {
               <Collapsible
                 defaultOpen={position.isOpen}
                 key={position.id}
-                className='ml-10'
               >
                 <CollapsibleTrigger asChild>
                   <div className='group space-y-0.5 rounded-md p-0.5 transition-colors duration-200 hover:cursor-pointer dark:hover:bg-gray-900/20'>
@@ -81,7 +80,7 @@ const WorkExperience = () => {
               </Collapsible>
             ))}
 
-            <div className='flex flex-wrap gap-1 pl-10'>
+            <div className='flex flex-wrap gap-1'>
               {experience.technologies.map((technology, index) => (
                 <div
                   className='group relative w-fit px-1.5 py-0.5 font-mono text-xs text-gray-800 dark:text-gray-300'

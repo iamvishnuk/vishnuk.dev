@@ -4,6 +4,7 @@ import About from '@/components/about';
 import GitHubContributions from '@/components/github-contribution';
 import WorkExperience from '@/components/work-experience';
 import TechStack from '@/components/tech-stack';
+import LeetcodeContribution from '@/components/leetcode-contribution';
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <About />
       <Contact />
       <GitHubContributions />
+      <LeetcodeContribution />
       <WorkExperience />
       <TechStack />
     </div>
