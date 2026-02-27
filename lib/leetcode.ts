@@ -5,7 +5,8 @@ export const getLeetCodeContributions = unstable_cache(
   async () => {
     try {
       const res = await fetch(
-        'http://localhost:8001/api/v1/calendar/vishnukkakkarayil'
+        'https://api.leetcodeinsights.in/api/v1/calender/vishnukkakkarayil',
+        { next: { revalidate: 86400 } }
       );
 
       if (!res.ok) {

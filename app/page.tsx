@@ -5,12 +5,14 @@ import GitHubContributions from '@/components/github-contribution';
 import WorkExperience from '@/components/work-experience';
 import TechStack from '@/components/tech-stack';
 import LeetcodeContribution from '@/components/leetcode-contribution';
+import Presence from '@/components/presence';
 
 export default function Home() {
   return (
     <div className='pb-16'>
       <Hero />
       <About />
+      <Presence />
       <Contact />
       <GitHubContributions />
       <LeetcodeContribution />

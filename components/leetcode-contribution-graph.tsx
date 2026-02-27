@@ -20,7 +20,7 @@ export type LeetcodeContributionResponse = {
 };
 
 type LeetcodeContributionGraphProps = {
-  contribution?: LeetcodeContributionResponse;
+  contribution?: LeetcodeContributionResponse | null;
 };
 
 type Activity = {
