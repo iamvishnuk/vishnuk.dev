@@ -7,7 +7,14 @@ import TechStack from '@/components/tech-stack';
 import LeetcodeContribution from '@/components/leetcode-contribution';
 import Presence from '@/components/presence';
 
-export default function Home() {
+type HomeProps = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function Home({ searchParams }: HomeProps) {
+  const revoledSearchParams = await searchParams;
+  const year = (revoledSearchParams?.year as string) || undefined;
+
   return (
     <div className='pb-16'>
       <Hero />
@@ -15,7 +22,7 @@ export default function Home() {
       <Presence />
       <Contact />
       <GitHubContributions />
-      <LeetcodeContribution />
+      <LeetcodeContribution year={year} />
       <WorkExperience />
       <TechStack />
     </div>

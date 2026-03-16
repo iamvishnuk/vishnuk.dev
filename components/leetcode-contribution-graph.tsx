@@ -3,6 +3,15 @@
 import { cn } from '@/lib/utils';
 import { eachDayOfInterval, formatISO, getDay, parseISO } from 'date-fns';
 import { useMemo } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from './ui/select';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export type LeetcodeContributionResponse = {
   userName: string;
@@ -37,11 +46,16 @@ function getDynamicLevel(count: number, max: number) {
 const LeetcodeContributionGraph = ({
   contribution
 }: LeetcodeContributionGraphProps) => {
+  const { replace } = useRouter();
+  const path = usePathname();
+  const searchParams = useSearchParams();
+
   if (!contribution) return null;
 
   const blockSize = 12;
   const blockGap = 4;
   const monthGap = 10; // Extra gap between months
+  const currentYear = new Date().getFullYear();
 
   const { monthBlocks, totalWidth, totalHeight } = useMemo(() => {
     const calendar = new Map(
@@ -142,77 +156,120 @@ const LeetcodeContributionGraph = ({
     return { monthBlocks, totalWidth: currentX, totalHeight };
   }, [contribution]);
 
+  const handleYearChange = (year: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (year === 'current') {
+      params.delete('year');
+    } else {
+      params.set('year', year);
+    }
+
+    const queryString = params.toString();
+    const url = queryString ? `${path}?${queryString}` : path;
+
+    replace(url, { scroll: false });
+  };
+
   return (
-    <div className='w-full overflow-x-auto px-2'>
-      <div className='flex w-max items-center justify-between space-x-3 pb-2'>
-        <p className='flex items-center text-sm font-semibold text-gray-600 dark:text-gray-500'>
-          <span className='text-lg font-semibold text-gray-700 dark:text-gray-400'>
-            {contribution.totalSubmissions}
-          </span>
-          &nbsp; Submissions in the past year
-        </p>
-        <p className='text-sm font-semibold text-gray-600 dark:text-gray-500'>
-          Total active days: {contribution.totalActiveDays}
-        </p>
-        <p className='text-sm font-semibold text-gray-600 dark:text-gray-500'>
-          Max streak: {contribution.streak}
-        </p>
-      </div>
+    <div>
+      <div className='flex w-full items-center justify-between space-x-3 px-2 pb-2'>
+        <div className='flex flex-col space-x-3 md:flex-row md:items-center'>
+          <p className='flex items-center text-sm font-semibold text-gray-600 dark:text-gray-500'>
+            <span className='text-lg font-semibold text-gray-700 dark:text-gray-400'>
+              {contribution.totalSubmissions}
+            </span>
+            &nbsp; Submissions in the past year
+          </p>
+          <p className='text-sm font-semibold text-gray-600 dark:text-gray-500'>
+            Total active days: {contribution.totalActiveDays}
+          </p>
+          <p className='text-sm font-semibold text-gray-600 dark:text-gray-500'>
+            Max streak: {contribution.streak}
+          </p>
+        </div>
+        <div>
+          <Select onValueChange={handleYearChange}>
+            <SelectTrigger className='border-none'>
+              <SelectValue placeholder='Current' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {/* Always show Current */}
+                <SelectItem value='current'>Current</SelectItem>
 
-      <svg
-        width={totalWidth}
-        height={totalHeight}
-      >
-        {monthBlocks.map((block, blockIndex) => (
-          <g
-            key={block.label + blockIndex}
-            transform={`translate(${block.x}, 0)`}
-          >
-            {/* Weeks in this month */}
-            {block.weeks.map((week, wIndex) => (
-              <g
-                key={wIndex}
-                transform={`translate(${wIndex * (blockSize + blockGap)}, 0)`}
-              >
-                {week.map((day, dIndex) => {
-                  if (!day.date) return null; // Skip placeholders
-                  return (
-                    <rect
-                      key={dIndex}
-                      x={0}
-                      y={dIndex * (blockSize + blockGap)}
-                      width={blockSize}
-                      height={blockSize}
-                      rx={2}
-                      data-level={day.level}
-                      className={cn(
-                        'data-[level="0"]:fill-[#e5e7eb] dark:data-[level="0"]:fill-[#161b22]',
-                        'data-[level="1"]:fill-[#fed7aa] dark:data-[level="1"]:fill-[#4a1d00]',
-                        'data-[level="2"]:fill-[#fb923c] dark:data-[level="2"]:fill-[#7c2d12]',
-                        'data-[level="3"]:fill-[#f97316] dark:data-[level="3"]:fill-[#c2410c]',
-                        'data-[level="4"]:fill-[#ea580c] dark:data-[level="4"]:fill-[#ff8c00]'
-                      )}
+                {/* Show only previous years */}
+                {contribution.activeYears
+                  .filter((year) => year !== currentYear)
+                  .map((year) => (
+                    <SelectItem
+                      value={year.toString()}
+                      key={year}
                     >
-                      <title>{`${day.submissions} submissions on ${day.date}`}</title>
-                    </rect>
-                  );
-                })}
-              </g>
-            ))}
-
-            {/* Month Label at the bottom of the block */}
-            <text
-              x={block.width / 2}
-              y={totalHeight - 5}
-              textAnchor='middle'
-              fill='#888'
-              fontSize={12}
+                      {year}
+                    </SelectItem>
+                  ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+      <div className='w-full overflow-x-auto px-2'>
+        <svg
+          width={totalWidth}
+          height={totalHeight}
+        >
+          {monthBlocks.map((block, blockIndex) => (
+            <g
+              key={block.label + blockIndex}
+              transform={`translate(${block.x}, 0)`}
             >
-              {block.label}
-            </text>
-          </g>
-        ))}
-      </svg>
+              {/* Weeks in this month */}
+              {block.weeks.map((week, wIndex) => (
+                <g
+                  key={wIndex}
+                  transform={`translate(${wIndex * (blockSize + blockGap)}, 0)`}
+                >
+                  {week.map((day, dIndex) => {
+                    if (!day.date) return null; // Skip placeholders
+                    return (
+                      <rect
+                        key={dIndex}
+                        x={0}
+                        y={dIndex * (blockSize + blockGap)}
+                        width={blockSize}
+                        height={blockSize}
+                        rx={2}
+                        data-level={day.level}
+                        className={cn(
+                          'data-[level="0"]:fill-[#e5e7eb] dark:data-[level="0"]:fill-[#161b22]',
+                          'data-[level="1"]:fill-[#fed7aa] dark:data-[level="1"]:fill-[#4a1d00]',
+                          'data-[level="2"]:fill-[#fb923c] dark:data-[level="2"]:fill-[#7c2d12]',
+                          'data-[level="3"]:fill-[#f97316] dark:data-[level="3"]:fill-[#c2410c]',
+                          'data-[level="4"]:fill-[#ea580c] dark:data-[level="4"]:fill-[#ff8c00]'
+                        )}
+                      >
+                        <title>{`${day.submissions} submissions on ${day.date}`}</title>
+                      </rect>
+                    );
+                  })}
+                </g>
+              ))}
+
+              {/* Month Label at the bottom of the block */}
+              <text
+                x={block.width / 2}
+                y={totalHeight - 5}
+                textAnchor='middle'
+                fill='#888'
+                fontSize={12}
+              >
+                {block.label}
+              </text>
+            </g>
+          ))}
+        </svg>
+      </div>
     </div>
   );
 };
