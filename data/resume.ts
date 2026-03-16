@@ -17,6 +17,14 @@ type Skill = {
 };
 
 export interface Data {
+  name: string;
+  initial: string;
+  url: string;
+  location: string;
+  locationLink: string;
+  description: string;
+  summary: string;
+  avatarUrl: string;
   skills: Skill[];
   projects: Project[];
 }
@@ -97,6 +105,16 @@ export const WORK_EXPERIENCE = [
 ] satisfies TWorkExperience[];
 
 export const DATA: Data = {
+  name: 'Vishnu K',
+  initial: 'VK',
+  url: 'https://vishnuk.dev',
+  location: 'Kerala, India',
+  locationLink: 'https://www.google.com/maps/place/Kannur',
+  description: 'Software Engineer. I love building things on internet.',
+  summary:
+    'As a self-taught MERN Stack Developer, seeking a challenging role to utilize technical skills, passion for web development, and a continuous learning mindset in contributing to dynamic projects and driving impactful solutions',
+  avatarUrl: '/me.jpg',
+
   skills: [
     {
       name: 'Typescript',
