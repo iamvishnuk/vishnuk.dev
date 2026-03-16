@@ -1,0 +1,28 @@
+FROM oven/bun:1 AS builder
+
+WORKDIR /app
+
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
+
+COPY . .
+ENV NEXT_TELEMETRY_DISABLED 1
+RUN bun run build
+
+FROM oven/bun:1-slim AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV PORT 3000
+ENV HOSTNAME "0.0.0.0"
+
+RUN useradd --system --uid 1001 --gid bun nextjs
+
+COPY --from=builder --chown=nextjs:bun /app/public ./public
+COPY --from=builder --chown=nextjs:bun /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:bun /app/.next/static ./.next/static
+
+USER nextjs
+EXPOSE 3000
+CMD ["bun", "server.js"]
