@@ -10,8 +10,9 @@ const Footer = () => {
             <p>
               Built by{' '}
               <Link
-                href='/'
+                href={'https://x.com/VishnuK1609'}
                 className='hover:text-sky-500 hover:underline'
+                target='_blank'
               >
                 Vishnu
               </Link>

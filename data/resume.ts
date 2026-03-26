@@ -224,7 +224,7 @@ export const DATA: Data = {
       endDate: 'Oct 2025',
       active: false,
       description:
-        'A modern full-stack real estate web application built with Next.js 15, React 19, and TypeScript. Features comprehensive property management with advanced filtering, location-based search, and admin dashboard. Integrates MongoDB, AWS S3 for image storage, and WhatsApp for instant communication. Built with Tailwind CSS and Framer Motion for responsive design and smooth animations. Implements server-side actions, form validation with Zod, and SEO-friendly routing. Docker-ready deployment showcasing enterprise-level architecture for real estate businesses.',
+        'A modern real estate platform for discovering and connecting with property listings. Users can search based on location and preferences, while admins can easily manage properties and inquiries in one place.',
       technologies: [
         'Next.js',
         'Typescript',
@@ -233,49 +233,18 @@ export const DATA: Data = {
         'Shadcn UI',
         'Motion',
         'AWS S3',
-        'Vercel'
-      ],
-      links: [
-        {
-          type: 'Website',
-          href: 'https://gharkadhosth.in'
-        }
-      ],
-      image: '/ghar-ka-dhosth.png',
-      video: ''
-    },
-    {
-      id: 'PRO-0002',
-      title: 'Gamezone (E-commerce)',
-      projectFor: 'Personal Project',
-      href: 'http://13.233.89.30:3001',
-      active: false,
-      startDate: 'Nov 2023',
-      endDate: 'Dec 2024',
-      description:
-        'Game-zone is an e-commerce website that allows customers to browse and purchase products online. The website features a user-friendly interface, a secure payment system, and advanced search and filtering options. Customers can create accounts, and track their order status.',
-      technologies: [
+        'Docker',
         'Node.js',
-        'Express.js',
-        'MongoDB',
-        'EJS',
-        'Bootstrap',
-        'Razorpay',
-        'Twilio'
+        'Express.js'
       ],
       links: [
         {
           type: 'Website',
-          href: 'http://13.233.89.30:3001',
+          href: 'https://gharkadhosth.in',
           icon: Icons.globe
-        },
-        {
-          type: 'GitHub',
-          href: 'https://github.com/iamvishnuk/Gamezone---ecommerce',
-          icon: Icons.github
         }
       ],
-      image: '/gamezone.png',
+      image: '/projects/ghar-ka-dhosth.png',
       video: ''
     }
   ]
